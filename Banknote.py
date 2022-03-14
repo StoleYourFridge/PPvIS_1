@@ -6,13 +6,3 @@ class Banknote:
 
     def get_denomination(self):
         return self.__banknote_denomination
-
-    @classmethod
-    def set_start_banknotes_amounts(cls):
-        banknotes = list()
-        for current_denomination in cls.existing_denominations:
-            current_amount = input("How much banknotes with {0} denomination you have : ".format(current_denomination))
-            for i in range(int(current_amount)):
-                banknotes.append(Banknote(current_denomination))
-        return banknotes
-

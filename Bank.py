@@ -4,6 +4,7 @@ from BankCard import BankCard, max_id_element_value, card_id_length
 from BankAccount import  BankAccount, account_id_length
 from Banknote import Banknote
 
+
 def generate_new_unique_value(set_of_existing_values, max_element_value, amount_of_elements):
     new_value = list()
     while len(new_value) == 0 or new_value in set_of_existing_values:
@@ -12,6 +13,7 @@ def generate_new_unique_value(set_of_existing_values, max_element_value, amount_
             new_value.append(random.random() % max_element_value)
     set_of_existing_values.add(new_value)
     return new_value
+
 
 class Bank:
     def __init__(self):

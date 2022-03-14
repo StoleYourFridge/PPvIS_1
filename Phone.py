@@ -7,4 +7,3 @@ class Phone:
 
     def get_phone_bill(self):
         return self.__phone_bill
-
