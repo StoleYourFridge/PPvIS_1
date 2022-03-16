@@ -1,7 +1,6 @@
 import random
-from BankUser import BankUser
-from BankCard import BankCard, max_id_element_value, card_id_length
-from BankAccount import  BankAccount, account_id_length
+from BankEntity import BankUser, BankAccount
+from BankCard import BankCard
 from Banknote import Banknote
 
 
