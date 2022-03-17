@@ -1,7 +1,7 @@
 class BankCard:
-    def __init__(self, card_password):
+    def __init__(self, card_password, card_active):
         self.__card_password = card_password
-        self.__card_active = True
+        self.__card_active = card_active
 
     def __eq__(self, other):
         if self.__card_password == other.__card_password:
