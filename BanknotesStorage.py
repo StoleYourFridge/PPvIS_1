@@ -1,4 +1,5 @@
 from Banknote import Banknote
+default_bill_value = 0
 
 
 class BanknotesStorage:
@@ -60,6 +61,11 @@ class BanknotesStorage:
     def user_storage_input():
         denomination_amounts = list()
         for denomination in Banknote.existing_denominations:
-            current_amount = int(input("Amount of banknotes with {} denomination : ".format(denomination)))
+            try:
+                current_amount = int(input("Amount of banknotes with {} denomination : ".format(denomination)))
+            except ValueError:
+                current_amount = default_bill_value
+                print("Confirmed as {};".format(default_bill_value))
             denomination_amounts.append(current_amount)
+
         return BanknotesStorage(denomination_amounts)
