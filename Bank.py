@@ -1,3 +1,4 @@
+import json
 from BankEntity import BankUser, BankAccount
 from BankCard import BankCard
 from BanknotesStorage import BanknotesStorage, default_bill_value
@@ -14,9 +15,20 @@ class Bank:
         self.bank_accounts = list()
         self.bank_users = list()
 
-    def system_creates_new_bank_account(self, bank_account, bank_user):
-        self.bank_accounts.append(bank_account)
-        self.bank_users.append(bank_user)
+    def system_creates_new_bank_account(self, info):
+        for user in info:
+            account_card = BankCard(user["account info"]["password"], user["account info"]["activity status"])
+            user_card = BankCard(user["user info"]["password"], user["user info"]["activity status"])
+            account_bill = user["account info"]["bill"]
+            account_storage = BanknotesStorage(user["account info"]["storage"])
+            user_storage = BanknotesStorage(user["user info"]["storage"])
+            user_name = user["user info"]["name"]
+            user_phone_bill = user["user info"]["phone bill"]
+            bank_account = BankAccount(account_bill, account_card, account_storage)
+            bank_user = BankUser(user_name, user_phone_bill, user_card, user_storage)
+            self.bank_accounts.append(bank_account)
+            self.bank_users.append(bank_user)
+        return
 
     def user_creates_new_bank_account(self):
         name = input("Please, enter your name : ")
@@ -179,3 +191,24 @@ class Bank:
             elif choice == 3:
                 print("Good bye!")
                 return
+
+    def get_bank_info(self):
+        info = list()
+        for i in range(len(self.bank_users)):
+            user_info = {"user info": self.bank_users[i].get_info(), "account info": self.bank_accounts[i].get_info()}
+            info.append(user_info)
+        return info
+
+    def read_bank_info(self):
+        try:
+            with open("bank_info.json", "r") as f:
+                info = json.load(f)
+        except FileNotFoundError:
+            return
+        else:
+            self.system_creates_new_bank_account(info)
+
+    def write_bank_info(self):
+        info = self.get_bank_info()
+        with open("bank_info.json", "w") as f:
+            json.dump(info, f, indent=5)

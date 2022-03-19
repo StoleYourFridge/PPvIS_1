@@ -20,6 +20,14 @@ class BankAccount(BankEntity):
         super().__init__(card, storage)
         self.bill: int = bill
 
+    def get_info(self):
+        info = dict()
+        info["password"] = self.card.get_card_password()
+        info["activity status"] = self.card.get_activity_status()
+        info["storage"] = self.storage.get_info()
+        info["bill"] = self.bill
+        return info
+
     def get_banknotes_out_of_bill(self, required_sum):
         self.bill -= required_sum
 
@@ -32,3 +40,12 @@ class BankUser(BankEntity):
         super().__init__(card, storage)
         self.name: str = name
         self.phone = Phone(phone_bill)
+
+    def get_info(self):
+        info = dict()
+        info["password"] = self.card.get_card_password()
+        info["activity status"] = self.card.get_activity_status()
+        info["storage"] = self.storage.get_info()
+        info["phone bill"] = self.phone.get_phone_bill()
+        info["name"] = self.name
+        return info

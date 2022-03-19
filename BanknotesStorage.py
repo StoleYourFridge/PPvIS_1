@@ -69,3 +69,9 @@ class BanknotesStorage:
             denomination_amounts.append(current_amount)
 
         return BanknotesStorage(denomination_amounts)
+
+    def get_info(self):
+        info = list()
+        for denomination in Banknote.existing_denominations:
+            info.append(len(self.storage_banknotes[denomination]))
+        return info
