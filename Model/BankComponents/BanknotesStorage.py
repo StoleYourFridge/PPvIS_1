@@ -39,12 +39,6 @@ class BanknotesStorage:
         self.bill_amount = self.refresh_bill_value()
         return self
 
-    def output(self):
-        for denomination, amount in self.storage_banknotes.items():
-            print("With denomination {0} : {1} banknotes.".format(denomination,
-                                                                  amount))
-        print("Current storage bill : {}.".format(self.bill_amount))
-
 
 def decimal_to_storage(bill_to_get_out: int):
     storage_banknotes = dict().fromkeys(list(BanknotesStorage.existing_denominations))
