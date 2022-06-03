@@ -1,4 +1,4 @@
-from Model.BankComponents.BankEntities import BankUser, BankAccount
+from Model.BankComponents.BankEntities import BankEntity, BankUser, BankAccount
 from Model.BankComponents.BanknotesStorage import BanknotesStorage, decimal_to_storage
 
 
@@ -10,14 +10,14 @@ class BankModel:
         self.current_working_entity = None
 
     def add_user_account_entity(self,
-                                user_name,
-                                bank_storage,
-                                user_storage,
-                                bank_bill,
-                                user_phone_bill,
-                                card_password,
-                                before_being_blocked_situation,
-                                steps_before_being_blocked):
+                                user_name: str,
+                                bank_storage: dict,
+                                user_storage: dict,
+                                bank_bill: int,
+                                user_phone_bill: int,
+                                card_password: str,
+                                before_being_blocked_situation: bool,
+                                steps_before_being_blocked: int):
         self.accounts.append(BankAccount(card_password,
                                          before_being_blocked_situation,
                                          steps_before_being_blocked,
@@ -28,18 +28,18 @@ class BankModel:
                                     user_phone_bill)))
 
     def set_authorized(self,
-                       authorized):
+                       authorized: bool):
         self.authorized = authorized
 
     def set_current_working_entity(self,
-                                   number):
+                                   number: int):
         if number <= 0 or number > len(self.users):
             raise NameError("DataWithWrongValue")
         self.current_working_entity = number - 1
         self.set_authorized(False)
 
     def password_checker(self,
-                         entered_password):
+                         entered_password: str):
         if self.current_working_entity is None:
             return "CurrentWorkingEntityMissed"
         working_card = self.accounts[self.current_working_entity].bank_card
@@ -73,10 +73,10 @@ class BankModel:
         return "Correct"
 
     @staticmethod
-    def increase(get_from_object,
-                 get_to_object,
-                 get_from_object_attribute,
-                 get_to_object_attribute,
+    def increase(get_from_object: BankEntity,
+                 get_to_object: BankEntity,
+                 get_from_object_attribute: str,
+                 get_to_object_attribute: str,
                  increase_value):
         if get_from_object_attribute == "bill" and get_from_object.bill < increase_value:
             return "Incorrect"
@@ -97,7 +97,7 @@ class BankModel:
         return "Correct"
 
     def increase_bank_storage_with_user_storage(self,
-                                                storage):
+                                                storage: dict):
         if not self.authorized:
             return "NotAuthorized"
         return BankModel.increase(self.users[self.current_working_entity],
@@ -107,7 +107,7 @@ class BankModel:
                                   BanknotesStorage(storage))
 
     def increase_bank_bill_with_user_storage(self,
-                                             storage):
+                                             storage: dict):
         if not self.authorized:
             return "NotAuthorized"
         return BankModel.increase(self.users[self.current_working_entity],
@@ -117,7 +117,7 @@ class BankModel:
                                   BanknotesStorage(storage))
 
     def increase_user_phone_with_bank_bill(self,
-                                           bill):
+                                           bill: int):
         if not self.authorized:
             return "NotAuthorized"
         return BankModel.increase(self.accounts[self.current_working_entity],
@@ -127,7 +127,7 @@ class BankModel:
                                   bill)
 
     def increase_user_storage_with_bank_bill(self,
-                                             bill):
+                                             bill: int):
         if not self.authorized:
             return "NotAuthorized"
         return BankModel.increase(self.accounts[self.current_working_entity],
@@ -137,7 +137,7 @@ class BankModel:
                                   bill)
 
     def increase_user_storage_with_bank_storage(self,
-                                                storage):
+                                                storage: dict):
         if not self.authorized:
             return "NotAuthorized"
         return BankModel.increase(self.accounts[self.current_working_entity],

@@ -5,7 +5,7 @@ class BanknotesStorage:
     existing_denominations = BANKNOTES_DENOMINATIONS
 
     def __init__(self,
-                 storage_banknotes):
+                 storage_banknotes: dict):
         self.storage_banknotes = dict(storage_banknotes)
         self.bill_amount = self.refresh_bill_value()
 
@@ -46,7 +46,7 @@ class BanknotesStorage:
         print("Current storage bill : {}.".format(self.bill_amount))
 
 
-def decimal_to_storage(bill_to_get_out):
+def decimal_to_storage(bill_to_get_out: int):
     storage_banknotes = dict().fromkeys(list(BanknotesStorage.existing_denominations))
     reversed_denominations = list(BanknotesStorage.existing_denominations)
     reversed_denominations.reverse()

@@ -9,15 +9,15 @@ class BankController:
         self.model = BankModel()
 
     @staticmethod
-    def storage_denominations_checker(storage_denominations):
+    def storage_denominations_checker(storage_denominations: list):
         for index in range(len(storage_denominations)):
             storage_denominations[index] = int(storage_denominations[index])
             if storage_denominations[index] < 0:
                 raise NameError("DataWithWrongValue")
 
     @staticmethod
-    def integer_values_checker(first,
-                               second):
+    def integer_values_checker(first: str,
+                               second: str):
         try:
             first = int(first)
             second = int(second)
@@ -30,8 +30,8 @@ class BankController:
         return 0
 
     @staticmethod
-    def add_user_account_entity_value_checker(bank_storage_value,
-                                              user_storage_value):
+    def add_user_account_entity_value_checker(bank_storage_value: str,
+                                              user_storage_value: str):
         answer = BankController.integer_values_checker(bank_storage_value,
                                                        user_storage_value)
         if answer == "DataWithWrongType" or answer == "DataWithWrongValue":
@@ -40,8 +40,8 @@ class BankController:
                 bill_to_storage_denomination_list(int(user_storage_value)))
 
     @staticmethod
-    def increase_with_storage_value_checker(denomination,
-                                            amount):
+    def increase_with_storage_value_checker(denomination: str,
+                                            amount: str):
         answer = BankController.integer_values_checker(denomination,
                                                        amount)
         if answer == "DataWithWrongType" or answer == "DataWithWrongValue":
@@ -50,12 +50,12 @@ class BankController:
                                                                     int(amount))
 
     def add_user_account_entity_validated(self,
-                                          user_name,
-                                          bank_storage_denominations,
-                                          user_storage_denominations,
-                                          bank_bill,
-                                          user_phone_bill,
-                                          card_password):
+                                          user_name: str,
+                                          bank_storage_denominations: list,
+                                          user_storage_denominations: list,
+                                          bank_bill: str,
+                                          user_phone_bill: str,
+                                          card_password: str):
         try:
             BankController.storage_denominations_checker(bank_storage_denominations)
             BankController.storage_denominations_checker(user_storage_denominations)
@@ -82,7 +82,7 @@ class BankController:
         return "Correct"
 
     def set_current_working_entity_validated(self,
-                                             number):
+                                             number: str):
         try:
             number = int(number)
         except ValueError:
@@ -94,14 +94,14 @@ class BankController:
         return "Correct"
 
     def password_checker(self,
-                         password):
+                         password: str):
         return self.model.password_checker(password)
 
     def bank_call(self):
         return self.model.bank_call()
 
     def increase_bank_storage_with_user_storage_validated(self,
-                                                          storage_denominations):
+                                                          storage_denominations: list):
         try:
             BankController.storage_denominations_checker(storage_denominations)
         except ValueError:
@@ -113,7 +113,7 @@ class BankController:
         return self.model.increase_bank_storage_with_user_storage(storage_denominations)
 
     def increase_bank_bill_with_user_storage_validated(self,
-                                                       storage_denominations):
+                                                       storage_denominations: list):
         try:
             BankController.storage_denominations_checker(storage_denominations)
         except ValueError:
@@ -125,7 +125,7 @@ class BankController:
         return self.model.increase_bank_bill_with_user_storage(storage_denominations)
 
     def increase_user_phone_with_bank_bill_validated(self,
-                                                     bill):
+                                                     bill: str):
         try:
             bill = int(bill)
             if bill < 0:
@@ -137,7 +137,7 @@ class BankController:
         return self.model.increase_user_phone_with_bank_bill(bill)
 
     def increase_user_storage_with_bank_bill_validated(self,
-                                                       bill):
+                                                       bill: str):
         try:
             bill = int(bill)
             if bill < 0:
@@ -149,7 +149,7 @@ class BankController:
         return self.model.increase_user_storage_with_bank_bill(bill)
 
     def increase_user_storage_with_bank_storage_validated(self,
-                                                          storage_denominations):
+                                                          storage_denominations: list):
         try:
             BankController.storage_denominations_checker(storage_denominations)
         except ValueError:
@@ -209,12 +209,12 @@ class BankController:
             self.model.set_authorized(info["authorized"])
 
 
-def bill_to_storage_denomination_list(number):
+def bill_to_storage_denomination_list(number: int):
     return list(decimal_to_storage(number).values())
 
 
-def denomination_and_amount_to_storage_denomination_list(denomination,
-                                                         amount):
+def denomination_and_amount_to_storage_denomination_list(denomination: int,
+                                                         amount: int):
     storage = [0 for index in range(len(BANKNOTES_DENOMINATIONS))]
     try:
         storage[BANKNOTES_DENOMINATIONS.index(denomination)] = amount

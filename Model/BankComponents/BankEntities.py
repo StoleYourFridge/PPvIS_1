@@ -4,8 +4,8 @@ from Model.BankComponents.BankCard import BankCard
 
 class BankEntity:
     def __init__(self,
-                 storage,
-                 bill):
+                 storage: dict,
+                 bill: int):
         self.storage = BanknotesStorage(storage)
         self.bill = bill
 
@@ -15,11 +15,11 @@ class BankEntity:
 
 class BankAccount(BankEntity):
     def __init__(self,
-                 card_password,
-                 before_being_blocked_situation,
-                 steps_before_being_blocked,
-                 bank_storage,
-                 bank_bill):
+                 card_password: str,
+                 before_being_blocked_situation: bool,
+                 steps_before_being_blocked: int,
+                 bank_storage: dict,
+                 bank_bill: int):
         super(BankAccount, self).__init__(bank_storage,
                                           bank_bill)
         self.bank_card = BankCard(card_password,
@@ -38,9 +38,9 @@ class BankAccount(BankEntity):
 
 class BankUser(BankEntity):
     def __init__(self,
-                 user_name,
-                 user_storage,
-                 user_phone_bill):
+                 user_name: str,
+                 user_storage: dict,
+                 user_phone_bill: int):
         super(BankUser, self).__init__(user_storage,
                                        user_phone_bill)
         self.user_name = user_name

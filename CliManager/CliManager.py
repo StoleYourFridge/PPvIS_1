@@ -18,12 +18,12 @@ def cli():
 @click.option('--account_bill', default='10', help='Account bill value, gets int')
 @click.option('--user_phone_bill', default='10', help='User phone bill value, gets int')
 @click.option('--password', default='password', help='Account card password, gets string')
-def add_user(name,
-             account_storage,
-             user_cash,
-             account_bill,
-             user_phone_bill,
-             password):
+def add_user(name: str,
+             account_storage: str,
+             user_cash: str,
+             account_bill: str,
+             user_phone_bill: str,
+             password: str):
     answer = controller.add_user_account_entity_value_checker(account_storage,
                                                               user_cash)
     if answer == "DataWithWrongType" or answer == "DataWithWrongValue":
@@ -41,8 +41,8 @@ def add_user(name,
 @click.command()
 @click.option('--denomination', default='0', help='Denomination of banknote to add, gets int')
 @click.option('--amount', default='0', help='Amount of banknotes to add, gets int')
-def increase_account_storage_with_user_cash(denomination,
-                                            amount):
+def increase_account_storage_with_user_cash(denomination: str,
+                                            amount: str):
     answer = controller.increase_with_storage_value_checker(denomination,
                                                             amount)
     if answer == "DataWithWrongType" or answer == "DataWithWrongValue":
@@ -55,8 +55,8 @@ def increase_account_storage_with_user_cash(denomination,
 @click.command()
 @click.option('--denomination', default='0', help='Denomination of banknote to add, gets int')
 @click.option('--amount', default='0', help='Amount of banknotes to add, gets int')
-def increase_account_bill_with_user_cash(denomination,
-                                         amount):
+def increase_account_bill_with_user_cash(denomination: str,
+                                         amount: str):
     answer = controller.increase_with_storage_value_checker(denomination,
                                                             amount)
     if answer == "DataWithWrongType" or answer == "DataWithWrongValue":
@@ -69,8 +69,8 @@ def increase_account_bill_with_user_cash(denomination,
 @click.command()
 @click.option('--denomination', default='0', help='Denomination of banknote to add, gets int')
 @click.option('--amount', default='0', help='Amount of banknotes to add, gets int')
-def increase_user_cash_with_account_storage(denomination,
-                                            amount):
+def increase_user_cash_with_account_storage(denomination: str,
+                                            amount: str):
     answer = controller.increase_with_storage_value_checker(denomination,
                                                             amount)
     if answer == "DataWithWrongType" or answer == "DataWithWrongValue":
@@ -82,28 +82,28 @@ def increase_user_cash_with_account_storage(denomination,
 
 @click.command()
 @click.option('--bill', default='0', help='Bill to increase, gets int')
-def increase_user_phone_with_account_bill(bill):
+def increase_user_phone_with_account_bill(bill: str):
     click.echo(controller.increase_user_phone_with_bank_bill_validated(bill))
     controller.write_to_file()
 
 
 @click.command()
 @click.option('--bill', default='0', help='Bill to increase, gets int')
-def increase_user_cash_with_account_bill(bill):
+def increase_user_cash_with_account_bill(bill: str):
     click.echo(controller.increase_user_storage_with_bank_bill_validated(bill))
     controller.write_to_file()
 
 
 @click.command()
 @click.option('--number', default='0', help='Number of entity to work with, gets int')
-def set_current_working_entity(number):
+def set_current_working_entity(number: str):
     click.echo(controller.set_current_working_entity_validated(number))
     controller.write_to_file()
 
 
 @click.command()
 @click.password_option('--password', default='', help='Password to get authorized, gets string')
-def password_input(password):
+def password_input(password: str):
     answer = controller.password_checker(password)
     if answer != "Correct" and answer != "Blocked" and answer != "CurrentWorkingEntityMissed":
         click.echo("Attempts remain: {}".format(controller.get_amount_of_attempts()))
